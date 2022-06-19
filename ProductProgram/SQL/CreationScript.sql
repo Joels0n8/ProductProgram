@@ -4,12 +4,15 @@ use solution
 create table Product(
 	ProductId int identity (1, 1) primary key,
 	Name varchar(max),
-	Value varchar(10),
+	Value decimal(5,2),
 	Type tinyint,
 	CreationDate datetime,
     UpdateDate datetime,
 	DeletionDate datetime    
 );
+
+ALTER TABLE solution..Product
+ALTER COLUMN Value decimal (5,2)
 
 USE solution
 CREATE Table Sale(
@@ -25,8 +28,8 @@ ALTER TABLE Sale
 ADD CONSTRAINT FK_SALEP FOREIGN KEY (ProductId) REFERENCES solution..Product (ProductId);
 
 USE solution
-/*CREATE PROCEDURE [dbo].[GetAllProducts]
-AS*/
+CREATE PROCEDURE [dbo].[GetAllProducts]
+AS
 BEGIN
 SELECT
 	ProductId,

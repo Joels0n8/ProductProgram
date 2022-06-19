@@ -21,7 +21,7 @@ namespace ProductProgram.Controllers
                 string name = string.Format(Console.ReadLine());
 
                 Console.Write("Escreva o valor do novo produto: ");
-                string value = string.Format(Console.ReadLine());
+                float value = float.Parse(Console.ReadLine());
 
                 Console.Write("Escreva o tipo do novo produto(0 - Produto, 1 - Serviço): ");
                 string type = string.Format(Console.ReadLine());
@@ -30,6 +30,8 @@ namespace ProductProgram.Controllers
 
                 productTRA.SaveProduct(product);
 
+                Console.WriteLine("Pressione Enter para continuar");
+                Console.ReadLine();
                 Console.Clear();
             }
             catch (Exception ex)
@@ -54,12 +56,21 @@ namespace ProductProgram.Controllers
 
             productstList = productTRA.GetAllProducts();
 
-            foreach (ProductModel product in productstList)
+            if (productstList.Count == 0)
             {
-                Console.WriteLine("Id: " + product.Id + " Nome: " + product.Name +
-                   " Valor: " + product.Value);
+                Console.WriteLine("Aconteceu algum erro, pressione Enter para continuar");
+            }
+            else
+            {
+                Console.WriteLine();
+                foreach (ProductModel product in productstList)
+                {
+                    Console.WriteLine("Id: " + product.Id + ";  Nome: " + product.Name +
+                       ";   Valor: " + product.Value);
+                }
             }
 
+            Console.WriteLine("\nPressione Enter para voltar ao Menu");
             Console.ReadLine();
             Console.Clear();
         }

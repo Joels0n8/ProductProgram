@@ -7,22 +7,22 @@ namespace ProductProgram.DAO
     {
         Conexao connection = new Conexao();
         SqlCommand cmd = new SqlCommand();
-        public String message;
 
-        public void ExecuteProductInsert(string name, string value, short type)
+        public void ExecuteProductInsert(ProductModel product)
         {
             try
             {
-                string parameters = "@Name, @Value, @Type, @CreationDate, @DeletionDate";
+                string parameters = "@Name, @Value, @Type, @CreationDate, @UpdateDate, @DeletionDate";
 
                 //Comando Sql --SqlCommand
                 cmd.CommandText = ("insert into Product values (" + parameters + ")");
 
                 //Parameters
-                cmd.Parameters.AddWithValue("@Name", name);
-                cmd.Parameters.AddWithValue("@Value", value);
-                cmd.Parameters.AddWithValue("@Type", type);
+                cmd.Parameters.AddWithValue("@Name", product.Name);
+                cmd.Parameters.AddWithValue("@Value", product.Value);
+                cmd.Parameters.AddWithValue("@Type", (short)product.productType);
                 cmd.Parameters.AddWithValue("@CreationDate", DateTime.Now);
+                cmd.Parameters.AddWithValue("@UpdateDate", DateTime.Now);
                 cmd.Parameters.AddWithValue("@DeletionDate", DBNull.Value);
 
                 //connection with bd
@@ -34,12 +34,12 @@ namespace ProductProgram.DAO
                 //desconect bd
                 connection.Disconect();
 
-                //show message of result
-                this.message = "Cadastrado com sucesso!";
+                //message
+                Console.WriteLine("Produto cadastrado com sucesso");
             }
             catch (Exception ex)
             {
-                this.message = ex.Message;
+                Console.WriteLine("Ocorreu algum erro");
             }
         }
 
@@ -65,20 +65,21 @@ namespace ProductProgram.DAO
 
                     model.Id = Convert.ToInt32(reader["ProductId"]);
                     model.Name = Convert.ToString(reader["Name"]);
-                    model.Value = Convert.ToString(reader["Value"]);
+                    model.Value = Convert.ToSingle(reader["Value"]);
                     model.productType = (EnumProgram.Enums.ProductType)Convert.ToInt32(reader["Type"]);
 
                     listProducts.Add(model);
                 }
+
+                connection.Disconect();
+
+                return listProducts;
             }
             catch (Exception ex)
             {
                 this.message = ex.Message;
+                return null;
             }
-
-            connection.Disconect();
-
-            return listProducts;
         }
     }
 }

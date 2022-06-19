@@ -14,33 +14,7 @@ namespace ProductProgram.Transactional
         {
             ProductDAO exec = new ProductDAO();
 
-            exec.ExecuteProductInsert(product.Name, product.Value, ((short)product.productType));
-
-            /*//Comando Sql --SqlCommand
-            cmd.CommandText = "insert into Teste (Name, Value) values (@Name, @Value)";
-
-            //Parameters
-            cmd.Parameters.AddWithValue("@Name", product.Name);
-            cmd.Parameters.AddWithValue("@Value", product.Value);
-
-            //connection with bd
-            try
-            {
-                cmd.Connection = connection.Conect();
-
-                //exec cmd
-                cmd.ExecuteNonQuery();
-                   
-                //desconect bd
-                connection.Disconect();
-
-                //show message of result
-                this.message = "Cadastrado com sucesso!";
-            }
-            catch (SqlException ex)
-            {
-                this.message = ex.Message;
-            }*/
+            exec.ExecuteProductInsert(product);
         }
 
         public List<ProductModel> GetAllProducts()

@@ -15,7 +15,7 @@ namespace ProductProgram.Validators
 
         }
 
-        public void ValidateProduct(string name, string value, string type)
+        public void ValidateProduct(string name, float value, string type)
         {
             if (string.IsNullOrEmpty(name))
             {

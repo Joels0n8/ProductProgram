@@ -11,7 +11,7 @@ namespace ProductProgram.Model
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Value { get; set; }
+        public float Value { get; set; }
         public ProductType productType { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime DeletionDate { get; set; }

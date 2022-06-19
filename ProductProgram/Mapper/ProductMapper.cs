@@ -11,7 +11,7 @@ namespace ProductProgram.Mapper
 {
     internal class ProductMapper
     {
-        public ProductModel ProducMapper(string name, string value, string type)
+        public ProductModel ProducMapper(string name, float value, string type)
         {
             ProductValidator productValidator = new ProductValidator();
             productValidator.ValidateProduct(name, value, type);
