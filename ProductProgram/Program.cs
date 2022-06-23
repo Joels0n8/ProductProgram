@@ -1,9 +1,4 @@
-﻿using System;
-using ProductProgram.Model;
-using ProductProgram.Transactional;
-using ProductProgram.Mapper;
-using ProductProgram.Validators;
-using ProductProgram.Controllers;
+﻿using ProductProgram.Transactional;
 
 namespace ProductProgram
 {
@@ -29,16 +24,19 @@ namespace ProductProgram
                 switch (option)
                 {
                     case 1:
-                        MainBus.SaveNewProduct();
+                        MainTRA.SaveNewProduct();
                         break;
                     case 2:
-                        MainBus.SaveNewSale();
+                        MainTRA.SaveNewSale();
                         break;
                     case 3:
-                        MainBus.GetAllProductsAndServices();
+                        MainTRA.GetAllProductsAndServices();
                         Console.WriteLine("\nPressione Enter para voltar ao Menu");
                         Console.ReadLine();
                         Console.Clear();
+                        break;
+                    case 4:
+                        Console.ReadKey();
                         break;
                     default:
                         Console.WriteLine();

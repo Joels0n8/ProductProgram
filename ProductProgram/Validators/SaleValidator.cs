@@ -1,5 +1,5 @@
-﻿using ProductProgram.Model;
-using ProductProgram.Transactional;
+﻿using ProductProgram.Bus;
+using ProductProgram.Model;
 
 namespace ProductProgram.Validators
 {
@@ -12,10 +12,10 @@ namespace ProductProgram.Validators
 
         public float ValidateSale(int id, int qtd)
         {
-            ProductTRA productTRA = new ProductTRA();
+            ProductBUS productBUS = new ProductBUS();
             ProductModel productModel = new ProductModel();
 
-            productModel = productTRA.GetProductById(id);
+            productModel = productBUS.GetProductById(id);
 
             if(productModel == null)
             {

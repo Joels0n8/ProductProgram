@@ -1,12 +1,12 @@
 ﻿using System;
 using ProductProgram.Model;
-using ProductProgram.Transactional;
 using ProductProgram.Mapper;
 using ProductProgram.Validators;
+using ProductProgram.Bus;
 
-namespace ProductProgram.Controllers
+namespace ProductProgram.Transactional
 {
-    public class MainBus
+    public class MainTRA
     {
         public static void SaveNewProduct()
         {
@@ -14,7 +14,7 @@ namespace ProductProgram.Controllers
             {
                 ProductModel product = new ProductModel();
                 ProductMapper productDTO = new ProductMapper();
-                ProductTRA productTRA = new ProductTRA();
+                ProductBUS productBUS = new ProductBUS();
                 ProductValidator productValidator = new ProductValidator();
 
                 Console.Write("Escreva o nome do novo produto: ");
@@ -28,7 +28,7 @@ namespace ProductProgram.Controllers
 
                 product = productDTO.ProductDTO(name, value, type);
 
-                productTRA.SaveProduct(product);
+                productBUS.SaveProduct(product);
 
                 Console.WriteLine("Pressione Enter para continuar");
                 Console.ReadLine();
@@ -67,16 +67,16 @@ namespace ProductProgram.Controllers
             }
             while (op != 'n');
 
-            if(sales.Count > 0)
+            if (sales.Count > 0)
                 saleTRA.SaveSale(sales);
         }
 
         public static void GetAllProductsAndServices()
         {
-            ProductTRA productTRA = new ProductTRA();
+            ProductBUS productBUS = new ProductBUS();
             List<ProductModel> productstList = new List<ProductModel>();
 
-            productstList = productTRA.GetAllProducts();
+            productstList = productBUS.GetAllProducts();
 
             if (productstList.Count == 0)
             {

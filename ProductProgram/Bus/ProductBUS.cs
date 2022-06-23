@@ -2,9 +2,9 @@
 using ProductProgram.DAO;
 using System.Data.SqlClient;
 
-namespace ProductProgram.Transactional
+namespace ProductProgram.Bus
 {
-    internal class ProductTRA
+    internal class ProductBUS
     {
         Conexao connection = new Conexao();
         SqlCommand cmd = new SqlCommand();
