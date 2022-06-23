@@ -68,7 +68,7 @@ namespace ProductProgram.Transactional
             while (op != 'n');
 
             if (sales.Count > 0)
-                saleTRA.SaveSale(sales);
+                saleTRA.SaveSales(sales);
         }
 
         public static void GetAllProductsAndServices()
@@ -91,6 +91,21 @@ namespace ProductProgram.Transactional
                        ";   Valor: " + product.value);
                 }
             }
+        }
+
+        public static void UpdateProduct()
+        {
+            ProductTRA productTRA = new ProductTRA();
+
+            Console.WriteLine("Lista de produtos:");
+            GetAllProductsAndServices();
+
+            Console.WriteLine("Qual o ID do produto você quer atualizar? ");
+            int productId = int.Parse(Console.ReadLine());
+
+            productTRA.UpdateProduct(productId);
+
+            Console.Clear();
         }
     }
 

@@ -120,5 +120,38 @@ namespace ProductProgram.DAO
                 return null;
             }
         }
+
+        public void UpdateProduct(ProductModel product, int productId)
+        {
+            try
+            {
+                //Comando Sql --SqlCommand
+                SqlCommand cmd = new SqlCommand("[UpdateProduct]");
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                //Parameters
+                cmd.Parameters.AddWithValue("@parameterId", productId);
+                cmd.Parameters.AddWithValue("@parameterName", product.name);
+                cmd.Parameters.AddWithValue("@parameterValue", product.value);
+                cmd.Parameters.AddWithValue("@parameterType", (short)product.productType);
+                cmd.Parameters.AddWithValue("@parameterUpdateDate", DateTime.Now);
+
+                //connection with bd
+                cmd.Connection = connection.Conect();
+
+                //exec cmd
+                cmd.ExecuteNonQuery();
+
+                //desconect bd
+                connection.Disconect();
+
+                //message
+                Console.WriteLine("Produto alterado com sucesso");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu algum erro");
+            }
+        }
     }
 }

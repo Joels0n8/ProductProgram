@@ -29,5 +29,12 @@ namespace ProductProgram.Bus
 
             return exec.GetProductById(id);
         }
+
+        public void UpdateProduct(ProductModel product, int productId)
+        {
+            ProductDAO exec = new ProductDAO();
+
+            exec.UpdateProduct(product, productId);
+        }
     }
 }

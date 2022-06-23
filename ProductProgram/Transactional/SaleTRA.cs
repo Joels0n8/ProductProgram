@@ -1,13 +1,16 @@
-﻿using ProductProgram.DAO;
+﻿using ProductProgram.Bus;
+using ProductProgram.DAO;
 using ProductProgram.Model;
 
 namespace ProductProgram.Transactional
 {
     public class SaleTRA
     {
-        public void SaveSale(List<SaleModel> sales)
+        public void SaveSales(List<SaleModel> sales)
         {
             SaleModel saleTotal = new SaleModel();
+            SaleBUS saleBUS = new SaleBUS();
+            
             foreach (SaleModel sale in sales)
             {
                 if (saleTotal.productsIds == null)
@@ -25,8 +28,7 @@ namespace ProductProgram.Transactional
                 saleTotal.value += sale.value;
             }
 
-            SaleDAO exec = new SaleDAO();
-            exec.ExecuteSaleInsert(saleTotal);
+            saleBUS.SaveSale(saleTotal);
         }
     }
 }
