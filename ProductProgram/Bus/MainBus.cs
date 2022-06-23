@@ -14,7 +14,7 @@ namespace ProductProgram.Controllers
             {
                 ProductModel product = new ProductModel();
                 ProductMapper productDTO = new ProductMapper();
-                ProductTransactional productTRA = new ProductTransactional();
+                ProductTRA productTRA = new ProductTRA();
                 ProductValidator productValidator = new ProductValidator();
 
                 Console.Write("Escreva o nome do novo produto: ");
@@ -26,7 +26,7 @@ namespace ProductProgram.Controllers
                 Console.Write("Escreva o tipo do novo produto(0 - Produto, 1 - Serviço): ");
                 string type = string.Format(Console.ReadLine());
 
-                product = productDTO.ProducMapper(name, value, type);
+                product = productDTO.ProductDTO(name, value, type);
 
                 productTRA.SaveProduct(product);
 
@@ -44,14 +44,36 @@ namespace ProductProgram.Controllers
             Console.WriteLine("Qual produto você quer cadastrar venda? ");
             GetAllProductsAndServices();
 
-            Console.Write("Id do produto/serviço: ");
+            List<SaleModel> sales = new List<SaleModel>();
+            SaleMapper sale = new SaleMapper();
+            SaleTRA saleTRA = new SaleTRA();
 
-            int id = Convert.ToInt32(Console.Read());
+            int id;
+            int qtd;
+            char op;
+
+            do
+            {
+                Console.Write("Id do produto/serviço vendido: ");
+                id = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Quantidade vendida: ");
+                qtd = int.Parse(Console.ReadLine());
+
+                sales.Add(sale.SaleDTO(id, qtd));
+
+                Console.WriteLine("Cadastrar mais vendas? s/n");
+                op = char.Parse(Console.ReadLine());
+            }
+            while (op != 'n');
+
+            if(sales.Count > 0)
+                saleTRA.SaveSale(sales);
         }
 
         public static void GetAllProductsAndServices()
         {
-            ProductTransactional productTRA = new ProductTransactional();
+            ProductTRA productTRA = new ProductTRA();
             List<ProductModel> productstList = new List<ProductModel>();
 
             productstList = productTRA.GetAllProducts();
@@ -65,14 +87,10 @@ namespace ProductProgram.Controllers
                 Console.WriteLine();
                 foreach (ProductModel product in productstList)
                 {
-                    Console.WriteLine("Id: " + product.Id + ";  Nome: " + product.Name +
-                       ";   Valor: " + product.Value);
+                    Console.WriteLine("Id: " + product.id + ";  Nome: " + product.name +
+                       ";   Valor: " + product.value);
                 }
             }
-
-            Console.WriteLine("\nPressione Enter para voltar ao Menu");
-            Console.ReadLine();
-            Console.Clear();
         }
     }
 

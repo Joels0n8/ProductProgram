@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProductProgram.Model;
+﻿using ProductProgram.Model;
 using ProductProgram.Validators;
 using static ProductProgram.EnumProgram.Enums;
 
 namespace ProductProgram.Mapper
 {
-    internal class ProductMapper
+    public class ProductMapper
     {
-        public ProductModel ProducMapper(string name, float value, string type)
+        public ProductModel ProductDTO(string name, float value, string type)
         {
             ProductValidator productValidator = new ProductValidator();
             productValidator.ValidateProduct(name, value, type);
 
             ProductModel productMapper = new ProductModel();
             
-            productMapper.Name = name;
-            productMapper.Value = value;
+            productMapper.name = name;
+            productMapper.value = value;
             productMapper.productType = (ProductType)Enum.Parse(typeof(ProductType), type);
 
             return productMapper;

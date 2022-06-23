@@ -4,11 +4,10 @@ using System.Data.SqlClient;
 
 namespace ProductProgram.Transactional
 {
-    internal class ProductTransactional
+    internal class ProductTRA
     {
         Conexao connection = new Conexao();
         SqlCommand cmd = new SqlCommand();
-        public String message;
 
         public void SaveProduct(ProductModel product)
         {
@@ -21,7 +20,14 @@ namespace ProductProgram.Transactional
         {
             ProductDAO exec = new ProductDAO();
 
-            return exec.GetProductModels();
+            return exec.GetAllProducts();
+        }
+
+        public ProductModel GetProductById(int id)
+        {
+            ProductDAO exec = new ProductDAO();
+
+            return exec.GetProductById(id);
         }
     }
 }

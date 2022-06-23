@@ -31,15 +31,34 @@ USE solution
 CREATE PROCEDURE [dbo].[GetAllProducts]
 AS
 BEGIN
-SELECT
-	ProductId,
-	[Name],
-	[Value],
-	[Type],
-	CreationDate
-From 
-	solution..Product (NOLOCK)
-WHERE 
-	DeletionDate IS NULL
-OPTION(MAXDOP 1);
+	SELECT
+		ProductId,
+		[Name],
+		[Value],
+		[Type],
+		CreationDate
+	From 
+		solution..Product (NOLOCK)
+	WHERE 
+		DeletionDate IS NULL
+	OPTION(MAXDOP 1);
+END
+
+USE solution
+CREATE PROCEDURE [dbo].[GetProductById]
+	@parameterId int
+AS
+BEGIN
+	SELECT
+		ProductId,
+		[Name],
+		[Value],
+		[Type],
+		CreationDate
+	From 
+		solution..Product (NOLOCK)
+	WHERE
+		ProductId = @parameterId AND
+		DeletionDate IS NULL
+	OPTION(MAXDOP 1);
 END

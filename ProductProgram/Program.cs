@@ -36,6 +36,9 @@ namespace ProductProgram
                         break;
                     case 3:
                         MainBus.GetAllProductsAndServices();
+                        Console.WriteLine("\nPressione Enter para voltar ao Menu");
+                        Console.ReadLine();
+                        Console.Clear();
                         break;
                     default:
                         Console.WriteLine();
