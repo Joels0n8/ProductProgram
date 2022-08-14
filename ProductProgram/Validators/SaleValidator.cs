@@ -5,10 +5,7 @@ namespace ProductProgram.Validators
 {
     public class SaleValidator
     {
-        public SaleValidator()
-        {
-
-        }
+        public SaleValidator() { }
 
         public float ValidateSale(int id, int qtd)
         {

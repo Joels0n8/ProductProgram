@@ -1,8 +1,8 @@
-﻿using System;
-using ProductProgram.Model;
+﻿using ProductProgram.Model;
 using ProductProgram.Mapper;
 using ProductProgram.Validators;
 using ProductProgram.Bus;
+using System.Text.RegularExpressions;
 
 namespace ProductProgram.Transactional
 {
@@ -44,31 +44,43 @@ namespace ProductProgram.Transactional
             Console.WriteLine("Qual produto você quer cadastrar venda? ");
             GetAllProductsAndServices();
 
-            List<SaleModel> sales = new List<SaleModel>();
-            SaleMapper sale = new SaleMapper();
+            SalesModel sales = new SalesModel();
+            SalesMapper salesDTO = new SalesMapper();
             SaleTRA saleTRA = new SaleTRA();
+            SalesTRA salesTRA = new SalesTRA();
 
-            int id;
+            int saleId = saleTRA.SaveSale();
+
+            string productId;
             int qtd;
             char op;
 
             do
             {
                 Console.Write("Id do produto/serviço vendido: ");
-                id = int.Parse(Console.ReadLine());
+                productId = Console.ReadLine();
 
                 Console.WriteLine("Quantidade vendida: ");
                 qtd = int.Parse(Console.ReadLine());
 
-                sales.Add(sale.SaleDTO(id, qtd));
+                if (Regex.IsMatch(productId, "^\\d+$"))
+                {
+                    sales = salesDTO.SaleDTO(saleId, int.Parse(productId), qtd);
+
+                    if (sales != null)
+                        salesTRA.SaveSales(sales);
+                }
+                else
+                {
+                    throw new Exception("Id inválido");
+                }
 
                 Console.WriteLine("Cadastrar mais vendas? s/n");
                 op = char.Parse(Console.ReadLine());
             }
             while (op != 'n');
 
-            if (sales.Count > 0)
-                saleTRA.SaveSales(sales);
+            saleTRA.UpdateSaleValue(saleId);
         }
 
         public static void GetAllProductsAndServices()

@@ -1,20 +1,20 @@
 ﻿using ProductProgram.DAO;
-using ProductProgram.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ProductProgram.Bus
 {
     internal class SaleBUS
     {
-        public void SaveSale(SaleModel product)
+        public string SaveSale()
         {
             SaleDAO exec = new SaleDAO();
 
-            exec.ExecuteSaleInsert(product);
+            return exec.CreateSale();
+        }
+
+        public void UpdateSaleValue(int saleId)
+        {
+            SaleDAO exec = new SaleDAO();
+
+            exec.UpdateSaleValue(saleId);
         }
     }
 }

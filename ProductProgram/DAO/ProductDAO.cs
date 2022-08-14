@@ -10,6 +10,11 @@ namespace ProductProgram.DAO
 
         public void ExecuteProductInsert(ProductModel product)
         {
+            //connection with bd
+            cmd.Connection = connection.Connect();
+            
+            SqlTransaction tran = connection.BeginTran();
+
             try
             {
                 string parameters = "@name, @value, @type, @creationDate, @updateDate, @deletionDate";
@@ -25,14 +30,14 @@ namespace ProductProgram.DAO
                 cmd.Parameters.AddWithValue("@updateDate", DateTime.Now);
                 cmd.Parameters.AddWithValue("@deletionDate", DBNull.Value);
 
-                //connection with bd
-                cmd.Connection = connection.Conect();
+                //links with tran
+                cmd.Transaction = tran;
 
                 //exec cmd
                 cmd.ExecuteNonQuery();
 
-                //desconect bd
-                connection.Disconect();
+                //commit
+                tran.Commit();
 
                 //message
                 Console.WriteLine("Produto cadastrado com sucesso");
@@ -40,6 +45,15 @@ namespace ProductProgram.DAO
             catch (Exception ex)
             {
                 Console.WriteLine("Ocorreu algum erro");
+                Console.WriteLine(ex);
+
+                //Rollback
+                tran.Rollback();
+            }
+            finally
+            {
+                //disconnect bd
+                connection.Disconnect();
             }
         }
 
@@ -55,7 +69,7 @@ namespace ProductProgram.DAO
 
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                cmd.Connection = connection.Conect();
+                cmd.Connection = connection.Connect();
 
                 reader = cmd.ExecuteReader();
 
@@ -71,13 +85,14 @@ namespace ProductProgram.DAO
                     listProducts.Add(model);
                 }
 
-                connection.Disconect();
+                connection.Disconnect();
 
                 return listProducts;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Ocorreu algum erro");
+                Console.WriteLine(ex);
                 return null;
             }
         }
@@ -94,7 +109,7 @@ namespace ProductProgram.DAO
 
                 cmd.Parameters.AddWithValue("@parameterId", id);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Connection = connection.Conect();
+                cmd.Connection = connection.Connect();
 
                 reader = cmd.ExecuteReader();
 
@@ -110,19 +125,25 @@ namespace ProductProgram.DAO
                     product = model;
                 }
 
-                connection.Disconect();
+                connection.Disconnect();
 
                 return product;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Ocorreu algum erro");
+                Console.WriteLine(ex);
                 return null;
             }
         }
 
         public void UpdateProduct(ProductModel product, int productId)
         {
+            //connection with bd
+            cmd.Connection = connection.Connect();
+
+            SqlTransaction tran = connection.BeginTran();
+
             try
             {
                 //Comando Sql --SqlCommand
@@ -136,14 +157,14 @@ namespace ProductProgram.DAO
                 cmd.Parameters.AddWithValue("@parameterType", (short)product.productType);
                 cmd.Parameters.AddWithValue("@parameterUpdateDate", DateTime.Now);
 
-                //connection with bd
-                cmd.Connection = connection.Conect();
+                //links with tran
+                cmd.Transaction = tran;
 
                 //exec cmd
                 cmd.ExecuteNonQuery();
 
-                //desconect bd
-                connection.Disconect();
+                //commit
+                tran.Commit();
 
                 //message
                 Console.WriteLine("Produto alterado com sucesso");
@@ -151,6 +172,15 @@ namespace ProductProgram.DAO
             catch (Exception ex)
             {
                 Console.WriteLine("Ocorreu algum erro");
+                Console.WriteLine(ex);
+
+                //Rollback
+                tran.Rollback();
+            }
+            finally
+            {
+                //disconnect bd
+                connection.Disconnect();
             }
         }
     }

@@ -1,20 +1,12 @@
 ﻿using ProductProgram.Bus;
 using ProductProgram.Mapper;
 using ProductProgram.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProductProgram.Transactional
 {
     public class ProductTRA
     {
-        public ProductTRA()
-        {
-
-        }
+        public ProductTRA(){ }
         public void UpdateProduct(int productId)
         {
             ProductModel product = new ProductModel();

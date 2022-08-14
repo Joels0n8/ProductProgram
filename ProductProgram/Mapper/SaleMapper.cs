@@ -3,23 +3,25 @@ using ProductProgram.Validators;
 
 namespace ProductProgram.Mapper
 {
-    public class SaleMapper
+    public class SalesMapper
     {
-        public SaleModel SaleDTO(int id, int qtd)
+        public SalesMapper() { }
+        public SalesModel? SaleDTO(int saleId, int productId, int qtd)
         {
             SaleValidator saleValidator = new SaleValidator();
             
-            float saleValue = saleValidator.ValidateSale(id, qtd);
+            float saleValue = saleValidator.ValidateSale(productId, qtd);
 
             if (saleValue > 0)
             {
-                SaleModel saleMapper = new SaleModel();
+                SalesModel salesMapper = new SalesModel();
 
-                saleMapper.id = id;
-                saleMapper.qtd = qtd;
-                saleMapper.value = saleValue;
+                salesMapper.saleId = saleId;
+                salesMapper.productId = productId;
+                salesMapper.qtd = qtd;
+                salesMapper.value = saleValue;
 
-                return saleMapper;
+                return salesMapper;
             }
 
             else

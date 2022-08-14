@@ -10,22 +10,27 @@ namespace ProductProgram.DAO
             connection.ConnectionString = "Data Source=JOE;Initial Catalog=solution;Integrated Security=True";
         }
 
-        public SqlConnection Conect()
+        public SqlConnection Connect()
         {
             if (connection.State == System.Data.ConnectionState.Closed)
             {
                 connection.Open();
             }
-            
+
             return connection;
         }
 
-        public void Disconect()
+        public void Disconnect()
         {
             if (connection.State == System.Data.ConnectionState.Open)
             {
                 connection.Close();
             }
+        }
+
+        public SqlTransaction BeginTran()
+        {
+            return connection.BeginTransaction();
         }
     }
 }
