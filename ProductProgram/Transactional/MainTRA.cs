@@ -39,6 +39,7 @@ namespace ProductProgram.Transactional
                 Console.WriteLine(ex.Message);
             }
         }
+
         public static void SaveNewSale()
         {
             Console.WriteLine("Qual produto você quer cadastrar venda? ");
@@ -92,15 +93,15 @@ namespace ProductProgram.Transactional
 
             if (productstList.Count == 0)
             {
-                Console.WriteLine("Aconteceu algum erro, pressione Enter para continuar");
+                Console.WriteLine();
+                Console.WriteLine("Não existem produtos cadastrados");
             }
             else
             {
                 Console.WriteLine();
                 foreach (ProductModel product in productstList)
                 {
-                    Console.WriteLine("Id: " + product.id + ";  Nome: " + product.name +
-                       ";   Valor: " + product.value);
+                    Console.WriteLine("Id: " + product.id + ";  Nome: " + product.name + ";   Valor: " + product.value);
                 }
             }
         }

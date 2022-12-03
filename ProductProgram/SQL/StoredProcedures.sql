@@ -99,6 +99,29 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+CREATE PROCEDURE [dbo].[GetProductExistentNameByName]
+	@parameterName VARCHAR(40)
+AS
+BEGIN
+	SELECT
+		ProductId,
+		[Name],
+		[Value],
+		[Type],
+		CreationDate
+	From 
+		solution..Product (NOLOCK)
+	WHERE
+		Name = @parameterName AND
+		DeletionDate IS NULL
+	OPTION(MAXDOP 1);
+END
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE [dbo].[UpdateProduct]
 	@parameterId INT,
 	@parameterName VARCHAR(MAX),

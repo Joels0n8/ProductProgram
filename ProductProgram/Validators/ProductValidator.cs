@@ -1,4 +1,6 @@
-﻿namespace ProductProgram.Validators
+﻿using ProductProgram.Bus;
+
+namespace ProductProgram.Validators
 {
     public class ProductValidator
     {
@@ -9,19 +11,20 @@
 
         public void ValidateProduct(string name, float value, string type)
         {
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(value.ToString()) || string.IsNullOrEmpty(type))
             {
-                throw new Exception("o produto deve conter um nome");
+                Console.WriteLine();
+                throw new Exception("todos os campos do produto devem ser preenchidos");
             }
 
-            if (string.IsNullOrEmpty(value.ToString()))
-            {
-                throw new Exception("o produto deve conter um valor");
-            }
+            ProductBUS productBUS = new ProductBUS();
 
-            if (string.IsNullOrEmpty(type))
+            string? existentName = productBUS.GetProductExistentNameByName(name);
+
+            if (!string.IsNullOrEmpty(existentName))
             {
-                throw new Exception("o produto deve conter um tipo");
+                Console.WriteLine();
+                throw new Exception("produto já cadastrado");
             }
         }
     }

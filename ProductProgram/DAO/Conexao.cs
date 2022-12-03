@@ -7,7 +7,7 @@ namespace ProductProgram.DAO
         SqlConnection connection = new SqlConnection();
         public Conexao()
         {
-            connection.ConnectionString = "Data Source=JOE;Initial Catalog=solution;Integrated Security=True";
+            connection.ConnectionString = "Data Source=localhost;Initial Catalog=solution;Integrated Security=True";
         }
 
         public SqlConnection Connect()

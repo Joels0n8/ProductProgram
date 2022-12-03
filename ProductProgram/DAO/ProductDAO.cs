@@ -137,6 +137,38 @@ namespace ProductProgram.DAO
             }
         }
 
+        public string? GetProductExistentNameByName(string name)
+        {
+            string? existentName = null;
+
+            try
+            {
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand("[GetProductExistentNameByName]");
+
+                cmd.Parameters.AddWithValue("@parameterName", name);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Connection = connection.Connect();
+
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    existentName = (reader["Name"]).ToString();
+                }
+
+                connection.Disconnect();
+
+                return existentName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocorreu algum erro");
+                Console.WriteLine(ex);
+                return null;
+            }
+        }
+
         public void UpdateProduct(ProductModel product, int productId)
         {
             //connection with bd
